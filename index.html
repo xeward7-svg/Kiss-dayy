@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -13,33 +13,32 @@ body{
   min-height:100vh;
   overflow-x:hidden;
   color:white;
-  background: linear-gradient(-45deg, #2a003f, #5f0a87, #ff4d6d, #3a006e);
-  background-size: 400% 400%;
-  animation: romanticBG 15s ease infinite;
+  background: linear-gradient(-45deg, #4b006e, #7b2cbf, #ff758f, #5a189a);
+  background-size:400% 400%;
+  animation:bgMove 15s ease infinite;
   position:relative;
 }
 
-/* Animated gradient */
-@keyframes romanticBG {
-  0% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
+@keyframes bgMove{
+  0%{background-position:0% 50%}
+  50%{background-position:100% 50%}
+  100%{background-position:0% 50%}
 }
 
-/* Glow lights */
+/* Glow blobs */
 body::before, body::after{
   content:"";
   position:absolute;
   width:300px;
   height:300px;
-  background:rgba(255,100,150,0.3);
+  background:rgba(255,120,180,0.35);
   filter:blur(120px);
   border-radius:50%;
   z-index:-1;
-  animation: floatGlow 8s ease-in-out infinite alternate;
+  animation:floatGlow 8s ease-in-out infinite alternate;
 }
-body::before{ top:10%; left:5%;}
-body::after{ bottom:10%; right:5%;}
+body::before{top:10%;left:5%}
+body::after{bottom:10%;right:5%}
 
 @keyframes floatGlow{
   from{transform:translateY(0)}
@@ -74,12 +73,33 @@ button{
   border-radius:25px;
   padding:25px;
   box-shadow:0 20px 60px rgba(0,0,0,.5);
-  animation:heartbeat 3s infinite ease-in-out;
 }
 
-@keyframes heartbeat{
-  0%,100%{transform:scale(1)}
-  50%{transform:scale(1.03)}
+.glow-card{
+  position:relative;
+  z-index:1;
+}
+
+.glow-card::before{
+  content:"";
+  position:absolute;
+  top:-20px;
+  left:-20px;
+  right:-20px;
+  bottom:-20px;
+  background:rgba(255,120,180,0.4);
+  filter:blur(70px);
+  border-radius:30px;
+  z-index:-1;
+}
+
+@keyframes slowZoom{
+  0%{transform:scale(0.9);opacity:0}
+  100%{transform:scale(1);opacity:1}
+}
+
+.zoom{
+  animation:slowZoom 1.2s ease forwards;
 }
 
 #text{
@@ -111,7 +131,7 @@ button{
   to{transform:translateY(110vh)}
 }
 
-/* Fireworks */
+/* Firework */
 .firework{
   position:fixed;
   font-size:22px;
@@ -120,10 +140,6 @@ button{
 @keyframes boom{
   0%{transform:scale(0);opacity:1}
   100%{transform:scale(2);opacity:0}
-}
-
-.bigEmoji{
-  font-size:120px;
 }
 
 .toggle{
@@ -145,10 +161,15 @@ img{
 .counter{
   margin-top:10px;
   font-size:14px;
-  opacity:0.8;
+  opacity:0.9;
+}
+
+.dark{
+  filter:brightness(0.8);
 }
 </style>
 </head>
+
 <body>
 
 <div class="toggle" onclick="toggleDark()">🌙</div>
@@ -160,9 +181,9 @@ img{
 
 <!-- PAGE 2 -->
 <div id="page2" class="center" style="display:none;">
-  <div class="card">
+  <div class="card glow-card zoom">
     <div id="text"></div>
-    <div id="finalButtons" style="display:none;">
+    <div id="buttons" style="display:none;">
       <button onclick="yesFlow()">Yes 💋</button>
       <button onclick="noFlow()">No 🥺</button>
     </div>
@@ -172,19 +193,39 @@ img{
   </div>
 </div>
 
-<!-- NO PAGE -->
-<div id="noPage" class="center" style="display:none;">
-  <div class="bigEmoji">🥺</div>
-  <p style="margin-top:20px;">
-    haanji bacha jesa aap kahe baby mele... I love you soo much bacha
-  </p>
-</div>
-
 <!-- YES PAGE -->
 <div id="yesPage" class="center" style="display:none;">
-  <img src="yourgif.gif" alt="cute gif">
-  <div style="margin-top:15px;">
-    <button onclick="toggleMusic()">Play / Pause 🎵</button>
+  <div class="card glow-card zoom">
+
+    <h1>Yayyyyy Mele Bacha 💋💖</h1>
+
+    <p style="font-size:14px;margin-top:10px;">
+      Umahhhhhhhhhhhhh mela bacha kitna adorable pyaala pyaala sweetu rashumalai bacha mela umahhhhh 😘🥺🥺🎀🎀🎀  
+      mela baby hai kitna cutu cutu sa darling kuchu puchu bacha mela umahhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh 😘😘😘😘😘😘😘😘😘😘😘😘😘😘😘😘😘😘😘😘😘😘😘😘😘😘😘😘😘😘😘😘😘😘😘😘😘😘😘😘😘😘😘😘😘😘😘😘😘😘😘😘😘😘😘😘😘😘😘😘😘😘😘😘😘😘😘😘😘😘😘😘😘😘😘😘😘😘😘😘😘😘😘😘😘😘😘😘😘😘😘😘😘😘😘😘😘😘😘😘😘😘😘😘😘😘😘😘😘😘😘😘  
+      umahhhhhhhhhhhhhhh mele bacha 😘😘😘🥺🎀🐱  
+      Happyy kissi kissi day bacha mele umahhhhhhhhhhhhhh 💋💋💋💋💋💋😘😘😘😘😘😘💋💋💋💋💋💋💋💋💋💋💋💋🐱  
+      I Love You Soo Muchuu bacha mele 🥺🥺🎀 umahhhhhhhh mela babuu 😘😘😘😘😘😘😘😘😘😘😘😘😘🐱  
+      (btw all these kisses are for cheeks and forehead baby mele 🤭)  
+      i love you soo much mele babyy 🥺🥺
+    </p>
+
+    <img src="yourgif.gif">
+
+    <div style="margin-top:15px;">
+      <button onclick="toggleMusic()">Play / Pause 🎵</button>
+    </div>
+
+  </div>
+</div>
+
+<!-- NO PAGE -->
+<div id="noPage" class="center" style="display:none;">
+  <div class="card glow-card zoom">
+    <div style="font-size:100px;">🥺</div>
+    <h2 style="margin-top:10px;">It's okay mele bacha 💞</h2>
+    <p style="font-size:14px;margin-top:10px;">
+      haanji bacha jesa aap kahe baby mele... I love you soo much bacha 💖
+    </p>
   </div>
 </div>
 
@@ -193,9 +234,7 @@ img{
 </audio>
 
 <script>
-const message = `Happyy Kiss Day mele bacha 💋
-
-Can I kissi kissi you for eternity my babyy 🥺🎀`;
+const message=`Can I kissi kissi you for eternity my babyy 🥺🎀`;
 
 let i=0;
 let love=0;
@@ -204,8 +243,8 @@ function start(){
   document.getElementById("page1").style.display="none";
   document.getElementById("page2").style.display="flex";
   typeWriter();
-  floatingEffects();
-  fireworksLoop();
+  floating();
+  fireworks();
   loveCounter();
   if(navigator.vibrate){navigator.vibrate(100);}
 }
@@ -216,38 +255,38 @@ function typeWriter(){
     i++;
     setTimeout(typeWriter,20);
   }else{
-    document.getElementById("finalButtons").style.display="block";
+    document.getElementById("buttons").style.display="block";
   }
 }
 
-function floatingEffects(){
+function floating(){
   setInterval(()=>{
-    const kiss=document.createElement("div");
-    kiss.className="kiss";
-    kiss.innerText="💋";
-    kiss.style.left=Math.random()*100+"vw";
-    document.body.appendChild(kiss);
-    setTimeout(()=>kiss.remove(),6000);
+    const k=document.createElement("div");
+    k.className="kiss";
+    k.innerText="💋";
+    k.style.left=Math.random()*100+"vw";
+    document.body.appendChild(k);
+    setTimeout(()=>k.remove(),6000);
 
-    const rose=document.createElement("div");
-    rose.className="rose";
-    rose.innerText="🌹";
-    rose.style.left=Math.random()*100+"vw";
-    document.body.appendChild(rose);
-    setTimeout(()=>rose.remove(),8000);
-  },500);
+    const r=document.createElement("div");
+    r.className="rose";
+    r.innerText="🌹";
+    r.style.left=Math.random()*100+"vw";
+    document.body.appendChild(r);
+    setTimeout(()=>r.remove(),8000);
+  },600);
 }
 
-function fireworksLoop(){
+function fireworks(){
   setInterval(()=>{
-    const fw=document.createElement("div");
-    fw.className="firework";
-    fw.innerText="✨";
-    fw.style.left=Math.random()*100+"vw";
-    fw.style.top=Math.random()*80+"vh";
-    document.body.appendChild(fw);
-    setTimeout(()=>fw.remove(),1000);
-  },1200);
+    const f=document.createElement("div");
+    f.className="firework";
+    f.innerText="✨";
+    f.style.left=Math.random()*100+"vw";
+    f.style.top=Math.random()*80+"vh";
+    document.body.appendChild(f);
+    setTimeout(()=>f.remove(),1000);
+  },1500);
 }
 
 function loveCounter(){
@@ -269,9 +308,9 @@ function noFlow(){
 }
 
 function toggleMusic(){
-  const music=document.getElementById("music");
-  if(music.paused){music.play();}
-  else{music.pause();}
+  const m=document.getElementById("music");
+  if(m.paused){m.play();}
+  else{m.pause();}
 }
 
 function toggleDark(){
