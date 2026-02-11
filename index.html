@@ -7,31 +7,55 @@
 
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
+
 body{
   font-family:'Segoe UI',sans-serif;
   min-height:100vh;
   overflow-x:hidden;
   color:white;
-  background:linear-gradient(135deg,#2a003f,#4b006e,#2a003f);
-  transition:0.4s;
+  background: linear-gradient(-45deg, #2a003f, #5f0a87, #ff4d6d, #3a006e);
+  background-size: 400% 400%;
+  animation: romanticBG 15s ease infinite;
+  position:relative;
 }
 
-/* Dark Mode */
-.dark{
-  background:linear-gradient(135deg,#000000,#1a001f,#000000);
+/* Animated gradient */
+@keyframes romanticBG {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
 }
 
-/* Center layout */
+/* Glow lights */
+body::before, body::after{
+  content:"";
+  position:absolute;
+  width:300px;
+  height:300px;
+  background:rgba(255,100,150,0.3);
+  filter:blur(120px);
+  border-radius:50%;
+  z-index:-1;
+  animation: floatGlow 8s ease-in-out infinite alternate;
+}
+body::before{ top:10%; left:5%;}
+body::after{ bottom:10%; right:5%;}
+
+@keyframes floatGlow{
+  from{transform:translateY(0)}
+  to{transform:translateY(40px)}
+}
+
 .center{
   min-height:100vh;
   display:flex;
   justify-content:center;
   align-items:center;
-  padding:20px;
   flex-direction:column;
+  padding:20px;
+  text-align:center;
 }
 
-/* Button */
 button{
   padding:14px 24px;
   border:none;
@@ -40,10 +64,9 @@ button{
   color:white;
   cursor:pointer;
   margin:8px;
-  font-size:16px;
+  font-size:15px;
 }
 
-/* Glass Card */
 .card{
   max-width:520px;
   background:rgba(255,255,255,.1);
@@ -51,7 +74,6 @@ button{
   border-radius:25px;
   padding:25px;
   box-shadow:0 20px 60px rgba(0,0,0,.5);
-  text-align:center;
   animation:heartbeat 3s infinite ease-in-out;
 }
 
@@ -67,53 +89,41 @@ button{
   margin-top:10px;
 }
 
-img{
-  width:180px;
-  margin-top:15px;
-  border-radius:20px;
-}
-
 /* Floating kisses */
 .kiss{
   position:fixed;
-  font-size:20px;
-  animation:float 6s linear infinite;
+  font-size:22px;
+  animation:floatUp 6s linear infinite;
 }
-@keyframes float{
+@keyframes floatUp{
   from{transform:translateY(100vh);opacity:0}
   to{transform:translateY(-10vh);opacity:1}
 }
 
-/* Falling roses */
+/* Roses */
 .rose{
   position:fixed;
   font-size:18px;
-  animation:fall 8s linear infinite;
+  animation:fallDown 8s linear infinite;
 }
-@keyframes fall{
+@keyframes fallDown{
   from{transform:translateY(-10vh)}
   to{transform:translateY(110vh)}
 }
 
-/* Sparkles */
-.sparkle{
+/* Fireworks */
+.firework{
   position:fixed;
-  width:5px;
-  height:5px;
-  background:white;
-  border-radius:50%;
-  animation:float 7s linear infinite;
+  font-size:22px;
+  animation:boom 1s ease-out forwards;
+}
+@keyframes boom{
+  0%{transform:scale(0);opacity:1}
+  100%{transform:scale(2);opacity:0}
 }
 
-/* Big emoji page */
 .bigEmoji{
   font-size:120px;
-}
-
-.counter{
-  margin-top:10px;
-  font-size:14px;
-  opacity:0.8;
 }
 
 .toggle{
@@ -124,6 +134,18 @@ img{
   padding:8px 12px;
   border-radius:20px;
   cursor:pointer;
+}
+
+img{
+  width:180px;
+  margin-top:15px;
+  border-radius:20px;
+}
+
+.counter{
+  margin-top:10px;
+  font-size:14px;
+  opacity:0.8;
 }
 </style>
 </head>
@@ -136,16 +158,14 @@ img{
   <button onclick="start()">Tap for a surprise 💋</button>
 </div>
 
-<!-- PAGE 2 MESSAGE -->
+<!-- PAGE 2 -->
 <div id="page2" class="center" style="display:none;">
   <div class="card">
     <div id="text"></div>
-
     <div id="finalButtons" style="display:none;">
       <button onclick="yesFlow()">Yes 💋</button>
       <button onclick="noFlow()">No 🥺</button>
     </div>
-
     <div class="counter">
       Love counter: <span id="loveCount">0</span> 💖
     </div>
@@ -160,7 +180,7 @@ img{
   </p>
 </div>
 
-<!-- YES GIF PAGE -->
+<!-- YES PAGE -->
 <div id="yesPage" class="center" style="display:none;">
   <img src="yourgif.gif" alt="cute gif">
   <div style="margin-top:15px;">
@@ -173,16 +193,7 @@ img{
 </audio>
 
 <script>
-
-const message = `Umahhhhhhhhhhhhh mela bacha kitna adorable pyaala pyaala sweetu rashumalai bacha mela umahhhhh 😘🥺🥺🎀🎀🎀
-
-Happyy kissi kissi day bacha mele 💋💋💋
-
-I Love You Soo Muchuu bacha mele 🥺🥺🎀
-
-(btw all these kisses are for cheeks and forehead baby mele 🤭)
-
-i love you soo much mele babyy 🥺🥺
+const message = `Happyy Kiss Day mele bacha 💋
 
 Can I kissi kissi you for eternity my babyy 🥺🎀`;
 
@@ -194,6 +205,7 @@ function start(){
   document.getElementById("page2").style.display="flex";
   typeWriter();
   floatingEffects();
+  fireworksLoop();
   loveCounter();
   if(navigator.vibrate){navigator.vibrate(100);}
 }
@@ -202,34 +214,40 @@ function typeWriter(){
   if(i<message.length){
     document.getElementById("text").innerText+=message.charAt(i);
     i++;
-    setTimeout(typeWriter,18);
+    setTimeout(typeWriter,20);
   }else{
     document.getElementById("finalButtons").style.display="block";
   }
 }
 
 function floatingEffects(){
-  for(let i=0;i<30;i++){
+  setInterval(()=>{
     const kiss=document.createElement("div");
     kiss.className="kiss";
     kiss.innerText="💋";
     kiss.style.left=Math.random()*100+"vw";
     document.body.appendChild(kiss);
-    setTimeout(()=>kiss.remove(),8000);
+    setTimeout(()=>kiss.remove(),6000);
 
     const rose=document.createElement("div");
     rose.className="rose";
     rose.innerText="🌹";
     rose.style.left=Math.random()*100+"vw";
     document.body.appendChild(rose);
-    setTimeout(()=>rose.remove(),9000);
+    setTimeout(()=>rose.remove(),8000);
+  },500);
+}
 
-    const sparkle=document.createElement("div");
-    sparkle.className="sparkle";
-    sparkle.style.left=Math.random()*100+"vw";
-    document.body.appendChild(sparkle);
-    setTimeout(()=>sparkle.remove(),8000);
-  }
+function fireworksLoop(){
+  setInterval(()=>{
+    const fw=document.createElement("div");
+    fw.className="firework";
+    fw.innerText="✨";
+    fw.style.left=Math.random()*100+"vw";
+    fw.style.top=Math.random()*80+"vh";
+    document.body.appendChild(fw);
+    setTimeout(()=>fw.remove(),1000);
+  },1200);
 }
 
 function loveCounter(){
@@ -252,11 +270,8 @@ function noFlow(){
 
 function toggleMusic(){
   const music=document.getElementById("music");
-  if(music.paused){
-    music.play();
-  }else{
-    music.pause();
-  }
+  if(music.paused){music.play();}
+  else{music.pause();}
 }
 
 function toggleDark(){
